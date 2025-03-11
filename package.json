@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build": "echo \"Build completed successfully\""
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
@@ -15,5 +16,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.x"
   }
 }
