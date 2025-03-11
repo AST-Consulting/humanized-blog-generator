@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Humanized Blog Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Humanized Blog Generator</h1>
+            <p class="tagline">Create blog posts that feel authentically human</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <label for="topic">Blog Topic:</label>
+                <input type="text" id="topic" placeholder="Enter a blog topic (e.g., 'Remote Work Challenges')" required>
+                
+                <label for="tone">Tone:</label>
+                <select id="tone">
+                    <option value="casual">Casual</option>
+                    <option value="professional">Professional</option>
+                    <option value="humorous">Humorous</option>
+                    <option value="reflective">Reflective</option>
+                    <option value="informative">Informative</option>
+                </select>
+                
+                <button id="generate-btn">Generate Blog</button>
+            </div>
+
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>Crafting your human-like blog post...</p>
+            </div>
+
+            <div class="output-section">
+                <div class="output-header">
+                    <h2>Generated Blog</h2>
+                    <span class="word-count">Word count: <span id="word-count">0</span></span>
+                    <button id="copy-btn" class="action-btn" disabled>Copy</button>
+                </div>
+                <div id="blog-output"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by Google's Gemini API | Designed to create content that reads like human writing</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
