@@ -28,6 +28,25 @@
                     <option value="informative">Informative</option>
                 </select>
                 
+                <div class="series-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="is-series"> Generate as series
+                    </label>
+                    
+                    <div id="series-controls" class="hidden">
+                        <label for="series-title">Series Title:</label>
+                        <input type="text" id="series-title" placeholder="Optional: Enter a title for your series">
+                        
+                        <label for="num-parts">Number of Parts:</label>
+                        <select id="num-parts">
+                            <option value="2">2</option>
+                            <option value="3" selected>3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                
                 <button id="generate-btn">Generate Blog</button>
             </div>
 
@@ -39,6 +58,9 @@
             <div class="output-section">
                 <div class="output-header">
                     <h2>Generated Blog</h2>
+                    <div id="series-navigation" class="hidden">
+                        <div id="series-tabs"></div>
+                    </div>
                     <span class="word-count">Word count: <span id="word-count">0</span></span>
                     <button id="copy-btn" class="action-btn" disabled>Copy</button>
                 </div>

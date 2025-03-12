@@ -7,52 +7,98 @@ document.addEventListener('DOMContentLoaded', () => {
     const blogOutput = document.getElementById('blog-output');
     const wordCountEl = document.getElementById('word-count');
     const copyBtn = document.getElementById('copy-btn');
+    
+    // Series-related elements
+    const isSeriesCheckbox = document.getElementById('is-series');
+    const seriesControls = document.getElementById('series-controls');
+    const seriesTitleInput = document.getElementById('series-title');
+    const numPartsSelect = document.getElementById('num-parts');
+    const seriesNavigation = document.getElementById('series-navigation');
+    const seriesTabs = document.getElementById('series-tabs');
+
+    // Store series content
+    let seriesContent = [];
+    let currentActivePart = 0;
 
     // Event listeners
     generateBtn.addEventListener('click', generateBlog);
     copyBtn.addEventListener('click', copyBlogContent);
+    isSeriesCheckbox.addEventListener('change', toggleSeriesControls);
+
+    // Toggle series controls visibility
+    function toggleSeriesControls() {
+        if (isSeriesCheckbox.checked) {
+            seriesControls.classList.remove('hidden');
+        } else {
+            seriesControls.classList.add('hidden');
+        }
+    }
 
     // Generate blog content
     async function generateBlog() {
         const topic = topicInput.value.trim();
         const tone = toneSelect.value;
+        const isSeries = isSeriesCheckbox.checked;
+        const seriesTitle = seriesTitleInput.value.trim();
+        const numParts = isSeries ? parseInt(numPartsSelect.value) : 1;
 
         if (!topic) {
             alert('Please enter a blog topic');
             return;
         }
 
+        // Reset series content if generating a new series
+        seriesContent = [];
+        currentActivePart = 0;
+
         // Show loading indicator
         blogOutput.innerHTML = '';
+        seriesTabs.innerHTML = '';
+        seriesNavigation.classList.add('hidden');
         loadingIndicator.classList.remove('hidden');
         generateBtn.disabled = true;
         copyBtn.disabled = true;
 
         try {
-            const response = await fetch('/api/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ topic, tone })
-            });
+            if (isSeries) {
+                // Generate each part of the series
+                for (let part = 1; part <= numParts; part++) {
+                    await generateSeriesPart(topic, tone, part, numParts, seriesTitle);
+                }
+                
+                // Create series navigation tabs
+                createSeriesTabs(numParts);
+                seriesNavigation.classList.remove('hidden');
+                
+                // Display the first part by default
+                displaySeriesPart(0);
+            } else {
+                // Generate a single blog post
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ topic, tone })
+                });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to generate blog');
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to generate blog');
+                }
+
+                const data = await response.json();
+                
+                // Inject minor typing imperfections and randomness
+                const humanizedContent = humanizeContent(data.content);
+                
+                // Display the content
+                blogOutput.innerHTML = humanizedContent;
+                
+                // Update word count
+                const wordCount = countWords(humanizedContent);
+                wordCountEl.textContent = wordCount;
             }
-
-            const data = await response.json();
-            
-            // Inject minor typing imperfections and randomness
-            const humanizedContent = humanizeContent(data.content);
-            
-            // Display the content
-            blogOutput.innerHTML = humanizedContent;
-            
-            // Update word count
-            const wordCount = countWords(humanizedContent);
-            wordCountEl.textContent = wordCount;
             
             // Enable copy button
             copyBtn.disabled = false;
@@ -65,11 +111,89 @@ document.addEventListener('DOMContentLoaded', () => {
             generateBtn.disabled = false;
         }
     }
+    
+    // Generate a single part of a series
+    async function generateSeriesPart(topic, tone, partNumber, totalParts, seriesTitle) {
+        const seriesInfo = {
+            isSeries: true,
+            partNumber,
+            totalParts,
+            seriesTitle
+        };
+        
+        const response = await fetch('/api/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                topic, 
+                tone,
+                seriesInfo
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to generate series part');
+        }
+
+        const data = await response.json();
+        
+        // Inject minor typing imperfections and randomness
+        const humanizedContent = humanizeContent(data.content);
+        
+        // Store this part
+        seriesContent.push({
+            content: humanizedContent,
+            wordCount: countWords(humanizedContent)
+        });
+    }
+    
+    // Create tabs for series navigation
+    function createSeriesTabs(numParts) {
+        seriesTabs.innerHTML = '';
+        
+        for (let i = 0; i < numParts; i++) {
+            const tab = document.createElement('div');
+            tab.className = 'series-tab';
+            tab.textContent = `Part ${i + 1}`;
+            tab.dataset.partIndex = i;
+            
+            tab.addEventListener('click', function() {
+                displaySeriesPart(parseInt(this.dataset.partIndex));
+            });
+            
+            seriesTabs.appendChild(tab);
+        }
+    }
+    
+    // Display a specific part of the series
+    function displaySeriesPart(partIndex) {
+        // Update active tab
+        const tabs = seriesTabs.querySelectorAll('.series-tab');
+        tabs.forEach((tab, index) => {
+            if (index === partIndex) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
+            }
+        });
+        
+        // Display the content
+        blogOutput.innerHTML = seriesContent[partIndex].content;
+        
+        // Update word count
+        wordCountEl.textContent = seriesContent[partIndex].wordCount;
+        
+        // Update current active part
+        currentActivePart = partIndex;
+    }
 
     // Humanize content with minor imperfections to seem more human-like
     function humanizeContent(content) {
         // Break content into paragraphs
-        let paragraphs = content.split(/\\n\\n+/);
+        let paragraphs = content.split(/\n\n+/);
         
         // Apply various humanizing transformations
         paragraphs = paragraphs.map(paragraph => {
@@ -111,10 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
         paragraphs = paragraphs.map(p => {
             // Random chance to add ellipses or em dashes
             if (Math.random() < 0.15) {
-                return p.replace(/\\.(?=\\s)/g, '...');
+                return p.replace(/\.(?=\s)/g, '...');
             }
             if (Math.random() < 0.1) {
-                return p.replace(/,\\s/g, ' — ');
+                return p.replace(/,\s/g, ' — ');
             }
             return p;
         });
@@ -127,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function countWords(content) {
         // Remove HTML tags and count words
         const text = content.replace(/<[^>]*>/g, '');
-        return text.split(/\\s+/).filter(word => word.length > 0).length;
+        return text.split(/\s+/).filter(word => word.length > 0).length;
     }
 
     // Copy blog content to clipboard
