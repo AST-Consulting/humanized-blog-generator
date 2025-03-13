@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             if (isSeries) {
-                // Generate each part of the series
+                // Generate each part of the series sequentially
                 for (let part = 1; part <= numParts; part++) {
                     await generateSeriesPart(topic, tone, part, numParts, seriesTitle);
                 }
@@ -114,12 +114,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Generate a single part of a series
     async function generateSeriesPart(topic, tone, partNumber, totalParts, seriesTitle) {
+        // Extract content from previous parts to provide context
+        const previousParts = seriesContent.map(part => part.rawContent);
+        
         const seriesInfo = {
             isSeries: true,
             partNumber,
             totalParts,
-            seriesTitle
+            seriesTitle,
+            previousParts // Pass previous parts content for better continuity
         };
+        
+        // Show part-specific loading message
+        loadingIndicator.innerHTML = `Generating Part ${partNumber} of ${totalParts}...`;
         
         const response = await fetch('/api/generate', {
             method: 'POST',
@@ -143,9 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Inject minor typing imperfections and randomness
         const humanizedContent = humanizeContent(data.content);
         
-        // Store this part
+        // Store this part with both raw and humanized content
         seriesContent.push({
-            content: humanizedContent,
+            rawContent: data.content, // Store raw content for passing to next parts
+            content: humanizedContent, // Store humanized content for display
             wordCount: countWords(humanizedContent)
         });
     }
@@ -159,6 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
             tab.className = 'series-tab';
             tab.textContent = `Part ${i + 1}`;
             tab.dataset.partIndex = i;
+            
+            if (i === 0) {
+                tab.classList.add('active');
+            }
             
             tab.addEventListener('click', function() {
                 displaySeriesPart(parseInt(this.dataset.partIndex));
