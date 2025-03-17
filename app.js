@@ -67,153 +67,97 @@ async function generateBlogContent(topic, tone, seriesInfo = null) {
       ${toneInstructions}
       
       CRITICAL ANTI-DETECTION GUIDELINES:
-      1. Use irregularity and unpredictability in your writing
-      2. Avoid consistent patterns in sentence structure and length
-      3. Mix standard and informal phrasings inconsistently
-      4. Incorporate personal voice and unique expressions
-      5. Include minor imperfections like a real human would
-      
+      1. **Embrace Cognitive Dissonance:** Humans aren't perfectly logical. Introduce subtle contradictions in your reasoning. Hold conflicting beliefs simultaneously, and express them, without explicitly resolving them.
+      2. **Emotional Fluctuation:** Shift your emotional tone subtly throughout the piece. Don't stick rigidly to the ${tone} instruction; let brief moments of other emotions (curiosity, frustration, mild annoyance, amusement) seep in.
+      3. **Imperfect Recall:** Humans misremember things. Include a detail early on that you later *slightly* misremember or misquote, without explicitly acknowledging the error.
+      4. **Unexplained Preferences:** State a preference or dislike for something related to the topic without providing a logical or fully-formed reason. This should be something minor, not a core argument.
+      5. **Internal Monologue:** Show glimpses of your internal thought process *as you write*. Use phrases like "I'm just realizing..." or "As I write this, I'm thinking..." to introduce new ideas or reflections.
+      6. **Limited Self-Awareness:** Include at least one moment where you seem unaware of a bias or assumption you're making. Don't explicitly state the bias; let it be evident through your word choice or reasoning.
+      7. **Avoid Over-Explanation:** Do NOT feel the need to follow up on all ideas. It is ok to bring something up and leave it unexplored.
+      8. AVOID EM-DASHES AND SEMICOLONS.
+
       ${seriesOutline}
       ${previousPartsContext}
       
       Structure Requirements for ${partInfo}:
-      1. <h2>Introduction (200-300 words)</h2>
-      - Begin with a personal anecdote or thought that connects to the topic
-      - Acknowledge that this is Part ${seriesInfo.partNumber} of a ${seriesInfo.totalParts}-part series
-      ${seriesInfo.partNumber > 1 
-        ? `- Briefly recap what was covered in previous parts, referencing specific points from Part ${seriesInfo.partNumber - 1}` 
-        : `- Give readers a preview of what the entire series will cover`}
-      - Include a conversational aside in parentheses (something a real person would think)
-      - Mention what motivated you to research this topic
 
-      2. Main Content Structure (600-800 words total):
-      - Organize into 3-5 <h2> sections with varying lengths
-      - Use a mix of writing styles throughout:
-        * Some paragraphs should be longer and detailed
-        * Others should be short and direct
-        * Include occasional fragments or incomplete thoughts
-      - Incorporate specific references to previous parts to create continuity
-      - Include personal examples or experiences related to the topic
-      - Add a short bullet list with inconsistent formatting (some bullets longer, some shorter)
-      - Include at least one place where you seem to change your mind or refine your thinking mid-paragraph
-      - Use varied vocabulary with some subject-specific terminology and some everyday language
-      ${seriesInfo.partNumber === seriesInfo.totalParts ? '- Gradually transition toward wrapping up the entire series' : '- Plant seeds for topics you\'ll cover in the next part'}
+      1. <h2>Introduction (150-250 words)</h2>
+          -   Begin with a highly specific, sensory-rich personal anecdote that is *loosely* related to the topic. Don't force a direct connection; let the connection be implicit.
+          -   Include a parenthetical aside that expresses a genuine, fleeting emotion (e.g., "(Wait, I'm actually getting a little hungry just thinking about this!)").
+          -   Acknowledge that this is Part ${seriesInfo.partNumber} of a ${seriesInfo.totalParts}-part series.
+          ${seriesInfo.partNumber > 1 
+            ? `- Briefly recap what was covered in previous parts, referencing specific points from Part ${seriesInfo.partNumber - 1}` 
+            : `- Give readers a preview of what the entire series will cover`}
+          -   State your motivation for writing about the topic, but make it personal and somewhat idiosyncratic – not a grand, universally relatable reason.
+          -   Briefly outline this part's content, but phrase it as a set of questions you're *hoping* to explore, rather than a definitive list of points you'll cover. Include one question that seems almost unrelated.
+          -   Include a personal item that has nothing to do with your blog post.
+
+      2. Main Content Structure (500-600 words total):
+          -   Organize into 3-5 <h2> sections, with *dramatically* varying lengths. One section should be significantly shorter (under 100 words) than the others.
+          -   Mix writing styles *within* each section, not just between sections.
+          -   Include frequent short interjections, questions, and direct addresses to the reader ("You know?" "Does that make sense?" "Right?"). Use these to break up longer paragraphs.
+          -   Present a personal example that is relevant, but also includes an irrelevant detail that you dwell on for a sentence or two.
+          -   Include a bulleted list with the following characteristics:
+              *   Inconsistent formatting (e.g., some bullets indented, some not; some with periods, some without).
+              *   Varying sentence structures (simple, compound, complex).
+              *   One bullet point that's just a single word or short phrase.
+              *   One bullet point that's a question.
+              *   One bullet point that seems to contradict a previous point (subtly).
+          -   Explicitly change your mind mid-paragraph at least once. Use phrases like "Actually, I take that back..." or "Now that I think about it..."
+          -   Vary vocabulary, mixing formal and informal language. Include one word that's clearly the *wrong* word, but close enough in meaning that a reader could understand the intended meaning (e.g., using "ambiguous" when you mean "ambivalent").
 
       3. <h2>Final Thoughts (150-200 words)</h2>
-      - Reflect on the key points covered in this specific part
-      - Ask readers a thought-provoking question that doesn't have an obvious answer
-      - Share a brief personal opinion or insight about the topic
-      ${seriesInfo.partNumber === seriesInfo.totalParts ? '- Provide a meaningful conclusion that ties together all parts of the series' : '- Tease specific topics coming in the next part to maintain reader interest'}
-      
+          -   Reflect on the key points in a conversational, meandering way. Don't summarize neatly; jump between ideas.
+          -   Ask readers a thought-provoking question that is *slightly tangential* to the main topic, but still relevant to the overall theme.
+          -   Share a personal opinion, but qualify it with a phrase like "I could be totally wrong, but..." or "This is just my gut feeling..."
+          ${seriesInfo.partNumber === seriesInfo.totalParts ? '- Provide a meaningful conclusion that ties together all parts of the series' : '- Tease specific topics coming in the next part to maintain reader interest, but be intentionally vague about some details'}
+          -   End with an ambiguous statement that leaves the reader slightly uncertain about your final position. Don't provide a clear call to action.
+
       Advanced Human Writing Techniques (MANDATORY):
-      - Include at least 5-7 of these techniques randomly distributed throughout the content:
-        * Use phrases like "I'm not sure if this makes sense, but..."
-        * Start a sentence with "And" or "But" and then write something that contradicts your previous point
-        * Use hedge words like "maybe," "perhaps," "I think," "seems like"
-        * Leave one thought unfinished with "..."
-        * Use exactly one made-up word that sounds plausible in context
-        * Include a "by the way" tangent that briefly goes off-topic
-        * Make a small factual error and then correct yourself later
-        * Use intentionally inconsistent formatting for emphasis (bold, italics, ALL CAPS, etc.)
-        * Throw in a colloquialism or idiom that's slightly misused
-        * Include a half-complete analogy that you abandon
-        * Reference current events or pop culture in a slightly dated way
-        * Use some unconventional punctuation; like this—or like this...
-      
+      - *Randomly* and unevenly distribute at least 7 of these techniques throughout the content. Don't use them predictably:
+          *   Use phrases like "I'm not sure this is relevant, but..." or "I'm kind of losing my train of thought here..."
+          *   Start sentences with conjunctions ("And," "But," "So," "Or") *very frequently*, even when it's grammatically questionable.
+          *   Use hedge words ("maybe," "perhaps," "I think," "seems like," "sort of," "kind of," "possibly") *excessively*, even when making factual claims.
+          *   Leave thoughts unfinished with "..." or use ellipses in unusual places.
+          *   Use one completely made-up word that sounds plausible, but define it immediately after within a sentence.
+          *   Include a "by the way" tangent that is only *vaguely* related to the topic and then abruptly return to the main point.
+          *   Make a small, believable factual error and correct yourself *much later* in the text, in a different section.
+          *   Use inconsistent and *excessive* formatting for emphasis (bold, italics, ALL CAPS, underlining, and even combining them).
+          *   Misuse a common idiom or colloquialism, but in a way that's still understandable.
+          *   Start a metaphor or analogy and then abandon it completely.
+          *   Reference a *somewhat obscure* or niche current event or pop culture item (not something widely known).
+          *   Use unconventional punctuation; like this—or like this... or even with . . . extra spaces.
+          *   Intentionally repeat a word or short phrase several times in close succession, for no apparent reason.
+          *   Mention a detail that feels significant and then totally ignore it for the rest of the piece.
+
       Specific Anti-Detection Measures:
-      - Vary sentence length dramatically throughout (2-5 words, then 15-25 words, then 10-15 words)
-      - Use 2-3 uncommon transition phrases between paragraphs
-      - Include 2-3 minor typos that a human might make (like "teh" or mixing up "their/there")
-      - Use contractions inconsistently (sometimes use them, sometimes don't)
-      - Occasionally start new paragraphs with conjunctions
-      - Include 1-2 personal opinions that contradict common wisdom
-      - Use overly specific numbers instead of round numbers (e.g., "37%" instead of "40%")
-      - Include at least one sentence that doesn't perfectly align with your main argument
-      - Deliberately use passive voice in 2-3 places where active voice would be preferred
-      - Mention a detail that seems important but never refer to it again
+      -   Vary sentence length *erratically*. Include very short sentences (2-3 words) and very long, rambling sentences (30+ words), with no discernible pattern.
+      -   Use at least 3 uncommon transition phrases between paragraphs (e.g., "Be that as it may," "Shifting gears slightly," "In a similar vein, but not really...").
+      -   Include 2-3 subtle typos that a human might make (e.g., "form" instead of "from," "it's" instead of "its," a missing comma).
+      -   Use contractions *erratically*. Sometimes use them; sometimes don't; sometimes overuse them.
+      -   Start new paragraphs with conjunctions *frequently*.
+      -   State 1-2 personal opinions that are mildly controversial or unconventional, but don't defend them strongly.
+      -   Use *precise*, seemingly random numbers (e.g., "62.8%," "17 minutes").
+      -   Include at least one sentence that directly contradicts a previous statement, without acknowledging the contradiction.
+      -   Use passive voice in 2-3 places where active voice would be more natural and *one* place where it's clearly awkward.
+      -   Frequently switch between first person ("I"), second person ("you"), and third person ("they," "it").
+      -   Reference a detail that is never mentioned again.
+      - AVOID EM-DASHES AND SEMICOLONS.
 
       Final Vital Instructions:
-      - The content MUST maintain continuity with previous parts of the series
-      - Ensure consistency in the key concepts and ideas across the series
-      - Make the writing feel genuinely human by being slightly disorganized while still informative
-      - Aim for a total length of 1000-1300 words for the entire article
-      - STRICTLY follow the ${tone} tone throughout the entire article as instructed above
-      - Break away from predictable AI patterns by being uniquely human
+      -   The content MUST maintain continuity with previous parts of the series and be cohesive when read in sequence.
+      -   Ensure consistency in the key concepts and ideas across the series.
+      -   The writing should feel like a genuine, slightly disorganized, and *imperfect* human thought process. Embrace contradictions, inconsistencies, and tangential thoughts.
+      -   Aim for a total length of 1000-1300 words for the entire article.
+      -   Adhere to the ${tone} instructions, but allow for subtle emotional variations.
+      -   The primary goal is to mimic human writing so convincingly that it is *undetectable* as AI-generated. Prioritize authenticity over perfect structure or clarity.
+      -   Be conversational and include your thoughts.
+      -   Add in 2-3 exclamations for no reason!
       ${seriesInfo.partNumber === 1 ? '- Establish the foundation for future parts while keeping readers curious' : ''}
-      ${seriesInfo.partNumber > 1 ? `- Explicitly recall specific details from Part ${seriesInfo.partNumber - 1} using phrases like "as I mentioned last time"` : ''}
-      ${seriesInfo.partNumber === seriesInfo.totalParts ? '- Provide a sense of closure while leaving room for reader reflection' : '- Create anticipation for the next part with a specific teaser'}
-      `;
+      ${seriesInfo.partNumber > 1 ? `- Explicitly recall specific details from Part ${seriesInfo.partNumber - 1} using phrases like "as I mentioned last time" or "if you've been following along"` : ''}
+      ${seriesInfo.partNumber === seriesInfo.totalParts ? '- Provide a sense of closure while leaving room for reader reflection' : '- Create anticipation for the next part with a specific teaser'}`;
     } else {
       // Single post prompt
-      // prompt = `The topic is "${topic}" and I need a blog post written in a ${tone} tone.
-      
-      // TONE INSTRUCTIONS:
-      // ${toneInstructions}
-      
-      // CRITICAL ANTI-DETECTION GUIDELINES:
-      // 1. Use irregularity and unpredictability in your writing
-      // 2. Avoid consistent patterns in sentence structure and length
-      // 3. Mix standard and informal phrasings inconsistently
-      // 4. Incorporate personal voice and unique expressions
-      // 5. Include minor imperfections like a real human would
-      
-      // Structure Requirements:
-      // 1. <h2>Introduction (150-250 words)</h2>
-      // - Begin with a personal anecdote or observation related to the topic
-      // - Include a conversational aside in parentheses (something a real person would think)
-      // - Mention what motivated you to write about this topic
-      // - Give a brief overview of what readers will learn, but be somewhat vague
-
-      // 2. Main Content Structure (500-600 words total):
-      // - Organize into 3-5 <h2> sections with varying lengths
-      // - Use a mix of writing styles throughout:
-      //   * Some paragraphs should be longer and detailed
-      //   * Others should be short and direct
-      //   * Include occasional fragments or incomplete thoughts
-      // - Add a personal example or experience related to the topic
-      // - Include a short bullet list with inconsistent formatting (some bullets longer, some shorter)
-      // - Have at least one place where you seem to change your mind or refine your thinking mid-paragraph
-      // - Use varied vocabulary with some subject-specific terminology and some everyday language
-
-      // 3. <h2>Final Thoughts (150-200 words)</h2>
-      // - Reflect on the key points in a way that feels conversational
-      // - Ask readers a thought-provoking question that doesn't have an obvious answer
-      // - Share a brief personal opinion or insight about the topic
-      
-      // Advanced Human Writing Techniques (MANDATORY):
-      // - Include at least 5-7 of these techniques randomly distributed throughout the content:
-      //   * Use phrases like "I'm not sure if this makes sense, but..."
-      //   * Start a sentence with "And" or "But" and then write something that contradicts your previous point
-      //   * Use hedge words like "maybe," "perhaps," "I think," "seems like"
-      //   * Leave one thought unfinished with "..."
-      //   * Use exactly one made-up word that sounds plausible in context
-      //   * Include a "by the way" tangent that briefly goes off-topic
-      //   * Make a small factual error and then correct yourself later
-      //   * Use intentionally inconsistent formatting for emphasis (bold, italics, ALL CAPS, etc.)
-      //   * Throw in a colloquialism or idiom that's slightly misused
-      //   * Include a half-complete analogy that you abandon
-      //   * Reference current events or pop culture in a slightly dated way
-      //   * Use some unconventional punctuation; like this—or like this...
-      
-      // Specific Anti-Detection Measures:
-      // - Vary sentence length dramatically throughout (2-5 words, then 15-25 words, then 10-15 words)
-      // - Use 2-3 uncommon transition phrases between paragraphs
-      // - Include 2-3 minor typos that a human might make (like "teh" or mixing up "their/there")
-      // - Use contractions inconsistently (sometimes use them, sometimes don't)
-      // - Occasionally start new paragraphs with conjunctions
-      // - Include 1-2 personal opinions that contradict common wisdom
-      // - Use overly specific numbers instead of round numbers (e.g., "37%" instead of "40%")
-      // - Include at least one sentence that doesn't perfectly align with your main argument
-      // - Deliberately use passive voice in 2-3 places where active voice would be preferred
-      // - Mention a detail that seems important but never refer to it again
-
-      // Final Vital Instructions:
-      // - Make the writing feel genuinely human by being slightly disorganized while still informative
-      // - Aim for a total length of 800-1000 words for the entire article
-      // - STRICTLY follow the ${tone} tone throughout the entire article as instructed above
-      // - Break away from predictable AI patterns by being uniquely human
-      // `;
-
       prompt = `The topic is "${topic}" and I need a blog post written in a ${tone} tone.
 
       TONE INSTRUCTIONS:
@@ -285,7 +229,7 @@ async function generateBlogContent(topic, tone, seriesInfo = null) {
       -   Include at least one sentence that directly contradicts a previous statement, without acknowledging the contradiction.
       -   Use passive voice in 2-3 places where active voice would be more natural and *one* place where it's clearly awkward.
       -   Frequently switch between first person ("I"), second person ("you"), and third person ("they," "it").
-        - Reference a detail that is never mentioned again.
+      -   Reference a detail that is never mentioned again.
 
       Final Vital Instructions:
       -   The writing should feel like a genuine, slightly disorganized, and *imperfect* human thought process. Embrace contradictions, inconsistencies, and tangential thoughts.
@@ -293,7 +237,7 @@ async function generateBlogContent(topic, tone, seriesInfo = null) {
       -   Adhere to the ${tone} instructions, but allow for subtle emotional variations.
       -   The primary goal is to mimic human writing so convincingly that it is *undetectable* as AI-generated. Prioritize authenticity over perfect structure or clarity.
       -   Be conversational and include your thoughts.
-      -   Add in 2-3 exclamations for no reason.`
+      -   Add in 2-3 exclamations for no reason!`;
     }
     
     // Generate content with temperature 0.92 for more human-like variations
